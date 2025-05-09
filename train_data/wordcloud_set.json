@@ -1,0 +1,802 @@
+[
+  {
+    "image": "saved_graphs/wordcloud_0.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The most frequent word in the word cloud is indicated by the largest font size. Looking at the provided image, the words displayed are \"Word Frequency Distribution\" (title), \"many\", and \"per\". The word \"many\" is significantly larger than the word \"per\" and the words in the title. Therefore, \"many\" is the most frequent word.\n\nThe final answer is $\\boxed{many}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_1.png",
+    "question": "Does this word cloud contain the word 'amount'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_2.png",
+    "question": "What is the 1th most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The 1st most frequent word in this word cloud is \"many\".\n\n$\\boxed{many}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_3.png",
+    "question": "What is the 1th most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The word cloud displays words with sizes proportional to their frequency. The largest word represents the most frequent word.\nObserving the image, the word \"many\" is the largest word displayed in the word cloud.\nTherefore, the 1st most frequent word is \"many\".\n\nThe final answer is $\\boxed{many}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_4.png",
+    "question": "Which word in this word cloud is the second most common?",
+    "answer": "Word: much",
+    "reasoning": "Based on the visual size of the words in the word cloud, which represents their frequency, we can determine the relative frequencies.\nThe largest word is \"many\". This means \"many\" is the most common word.\nThe next largest words appear to be \"total\" and \"much\". Comparing their sizes, \"total\" seems slightly larger than \"much\".\nThe other words (\"number\", \"every\", \"minutes\", \"day\", \"hour\") are smaller than \"total\" and \"much\".\n\nTherefore, the order of frequency from highest to lowest appears to be:\n1. many\n2. total\n3. much\n... and then the rest.\n\nThe second most common word is the second largest word, which is \"total\".\n\nThe final answer is $\\boxed{total}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_5.png",
+    "question": "What is the 2th most frequent word in this word cloud?",
+    "answer": "Word: hours",
+    "reasoning": "The largest word in the word cloud is \"many\", indicating it is the most frequent.\nThe next largest words appear to be \"much\" and \"minutes\", which are very similar in size.\nAfter \"many\", \"much\" is one of the words that is clearly larger than the rest (like \"year\", \"hours\", \"per\", \"one\", \"week\", and \"day\").\n\nBased on visual inspection of the size, \"many\" is the 1st most frequent. \"much\" and \"minutes\" are candidates for the 2nd most frequent, being significantly larger than the remaining words but smaller than \"many\". Visually, \"much\" appears slightly larger than \"minutes\".\n\nTherefore, the 2nd most frequent word is \"much\".\n\nThe final answer is $\\boxed{much}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_6.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The image displays a word cloud illustrating word frequency distribution. In a word cloud, the size of a word indicates its frequency; larger words are more frequent than smaller words.\n\nLooking at the provided word cloud, the words visible are:\n- many\n- one\n- number\n- total\n- miles\n- per\n\nBy visual inspection, the word \"many\" is significantly larger than all other words in the cloud. This indicates that \"many\" has the highest frequency among the words displayed.\n\nTherefore, the most frequent word in this word cloud is \"many\".\n\nThe final answer is $\\boxed{many}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_7.png",
+    "question": "Is the word 'process' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words visible in the word cloud are \"much\", \"many\", and \"every\". The word \"process\" is not present.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_8.png",
+    "question": "Does this word cloud contain the word 'evening'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The word cloud displays the following words: 'many', 'number', 'cost', 'much', 'half', 'money', 'per', and 'week'. The word 'evening' is not present in this list.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_9.png",
+    "question": "Does the word 'agnes' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The word cloud displays the following words: 'many', 'every', 'much', 'money', 'water', 'day', and 'pie'. The word 'agnes' is not visible in the word cloud.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_10.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "The words in the word cloud are \"many\", \"much\", \"per\", and \"day\".\nThere are 4 different words.\n\n$\\boxed{4}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_11.png",
+    "question": "Does this word cloud contain the word 'agreed'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_12.png",
+    "question": "What is the second most frequent word in this word cloud?",
+    "answer": "Word: times",
+    "reasoning": "Based on the relative size of the words in the word cloud, which typically represents frequency, the largest word is \"many\". The next largest word is \"city\".\n\nThe second most frequent word is $\\boxed{city}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_13.png",
+    "question": "Does the word 'gives' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "Based on the word cloud image provided, the words visible are \"much\", \"three\", \"per\", \"many\", \"one\", \"pens\", and \"total\". The word \"gives\" does not appear in this list or anywhere in the image.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_14.png",
+    "question": "What is the 2th most frequent word in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "Based on the word cloud, the words are \"many\", \"total\", \"day\", \"one\", and \"much\". The size of the words indicates their frequency.\n\"many\" is clearly the largest word, representing the highest frequency.\nComparing the other words, \"total\" and \"much\" appear to be the next largest words, significantly larger than \"day\" and \"one\". Visually, \"total\" seems slightly larger than \"much\". \"day\" is smaller than \"total\" and \"much\", and \"one\" is the smallest word.\n\nRanking the words by size (frequency) from largest to smallest:\n1.  many\n2.  total (appears slightly larger than much)\n3.  much\n4.  day\n5.  one\n\nTherefore, the second most frequent word is \"total\".\n\nThe 2nd most frequent word is $\\boxed{total}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_15.png",
+    "question": "Does the word cloud contain the word 'brings'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The image contains a word cloud. I need to identify the words present in the word cloud and check if the word \"brings\" is among them.\n\nLooking at the image, the words clearly visible are:\n- many\n- total\n- hours\n- two\n- students\n- week\n- much\n\nI have carefully examined the word cloud and none of the words are \"brings\".\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_16.png",
+    "question": "Which word is the most frequent in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The image is a word cloud titled \"Word Frequency Distribution\". In a word cloud, the size of a word is proportional to its frequency. The larger the word, the more frequent it is.\n\nLooking at the words in the image:\n- \"much\" and \"day\" are on the left, relatively small.\n- \"cost\" is in the middle, rotated vertically, also relatively small compared to \"many\".\n- \"minutes\" is in the lower right, similar size to \"much\", \"day\", and \"cost\".\n- \"many\" is on the far right, rotated vertically, and is much larger than all other words.\n\nSince \"many\" is the largest word in the word cloud, it is the most frequent word.\n\nThe final answer is $\\boxed{many}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_17.png",
+    "question": "Does the word 'group' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_18.png",
+    "question": "Does the word 'cottage' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The word cloud displays the following words: 'much', 'many', 'cost', 'money', 'pounds', 'cards', 'per', and 'total'.\nThe word 'cottage' is not present in this list.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_19.png",
+    "question": "What is the total count of unique words in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The unique words in the word cloud are:\n1. would\n2. much\n3. money\n4. many\n5. total\n\nCounting these distinct words, we find there are 5 unique words.\n\nThe total count of unique words in this word cloud is 5.\n\n$\\boxed{5}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_20.png",
+    "question": "Is the word 'tim' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The image displays a word cloud with the title \"Word Frequency Distribution\". The visible words in the word cloud are \"much\" and \"many\", written vertically in large magenta font. The question asks if the word \"tim\" is present in this word cloud. By examining the image, we can see that the word \"tim\" is not present.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_21.png",
+    "question": "Which word is the third most common in this word cloud?",
+    "answer": "Word: day",
+    "reasoning": "The word cloud shows three words with different sizes, indicating their frequency:\n1.  \"many\" is the largest word, representing the highest frequency.\n2.  \"total\" is the second largest word, representing the second highest frequency.\n3.  \"day\" is the smallest word, representing the third highest frequency.\n\nTherefore, the third most common word is \"day\".\n\n$\\boxed{day}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_22.png",
+    "question": "Does this word cloud contain the word 'syrup'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The provided image is a word cloud displaying the frequency distribution of some words.\nThe words visible in the word cloud are:\n- \"much\" (large font size, horizontal orientation, greenish-blue color)\n- \"many\" (larger font size, horizontal orientation, greenish-yellow color)\n- \"day\" (smaller font size, vertical orientation, greenish-blue color)\nThe title of the word cloud is \"Word Frequency Distribution\".\n\nWe are asked to determine if the word 'syrup' is present in this word cloud.\nBy examining the words visible in the word cloud, which are \"much\", \"many\", and \"day\", we can clearly see that the word \"syrup\" is not among them.\n\nTherefore, the word cloud does not contain the word 'syrup'.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_23.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The most frequent word in this word cloud is \"many\". This is because in a word cloud, the size of a word is proportional to its frequency.\n\n$\\boxed{many}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_24.png",
+    "question": "Is the word 'foot' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words visible in the word cloud are:\n- sweets\n- many\n- half\n- two\n- much\n\nThe word 'foot' is not present in the list of visible words.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_25.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The words visible in the word cloud are:\n1. many\n2. much\n3. hours\n4. twice\n5. number\n\nThere are 5 different words.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_26.png",
+    "question": "Does the word 'amount' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The word cloud displays the following words:\n- Word Frequency Distribution (this is the title, not part of the word cloud words themselves)\n- two\n- total\n- much\n- many\n- students\n- first\n\nLooking at the list of words present in the word cloud, the word 'amount' is not among them.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_27.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "There are 5 different words in the word cloud: pens, much, many, two, and day.\n\n$\\boxed{5}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_28.png",
+    "question": "Which word is the third most frequent in this word cloud?",
+    "answer": "Word: day",
+    "reasoning": "Based on the size of the words in the word cloud, which indicates their frequency:\n1. The largest word is \"many\".\n2. The next largest words appear to be \"day\", \"per\", \"socks\", \"feet\", and \"total\". They are all roughly similar in size, but slightly smaller than \"many\" and significantly larger than \"days\".\n3. The smallest word is \"days\".\n\nSince \"day\", \"per\", \"socks\", \"feet\", and \"total\" are all roughly the same size, they share ranks from 2nd to 6th. It is difficult to definitively determine the exact order among these five words solely based on visual inspection. However, if we are forced to pick a specific word as the third most frequent, we must rely on the perceived slight differences in size or assume an underlying order not perfectly represented by the visual size.\n\nLooking closely, \"day\" appears slightly larger than the others in the second group. \"per\" appears slightly larger than \"socks\", \"feet\", and \"total\". \"socks\", \"feet\", and \"total\" appear very similar in size.\n\nSubjective ranking based on perceived size:\n1. many\n2. day\n3. per\n4. socks, feet, total (ties for 4th, 5th, 6th)\n7. days\n\nFollowing this subjective ranking, the third most frequent word is \"per\".\n\nThe final answer is $\\boxed{per}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_29.png",
+    "question": "Which word is the second most frequent in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "The word cloud displays the frequency of words by the size of the text. The larger the word, the more frequent it is.\nObserving the image, the word \"many\" is the largest, indicating it is the most frequent word.\nComparing the sizes of the other words (\"times\", \"total\", \"per\", \"much\"), the word \"times\" appears to be the second largest.\n\nThe final answer is $\\boxed{times}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_30.png",
+    "question": "What is the count of unique words in this word cloud?",
+    "answer": "Number of words: 7",
+    "reasoning": "The unique words in the word cloud are:\n1. times\n2. many\n3. day\n4. money\n5. hours\n6. number\n7. much\n\nThere are 7 unique words.\n\nThe final answer is $\\boxed{7}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_31.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 9",
+    "reasoning": "There are 9 different words in the word cloud: many, number, week, chicken, hours, times, total, day, and one.\n\nThe final answer is $\\boxed{9}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_32.png",
+    "question": "How many unique words are present in this word cloud?",
+    "answer": "Number of words: 7",
+    "reasoning": "There are 7 unique words in the word cloud. The words are \"candy\", \"many\", \"cars\", \"number\", \"total\", \"much\", and \"bought\".\nThe final answer is $\\boxed{7}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_33.png",
+    "question": "Does this word cloud contain the word 'raft'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "Based on the visual inspection of the word cloud image and the provided crops, the words present are \"many\", \"water\", \"times\", \"much\", \"day\", and \"people\". The word 'raft' is not visible in the image.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_34.png",
+    "question": "Is the word 'thomas' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words visible in the word cloud are 'many', 'much', 'two', and 'one'. The word 'thomas' is not present.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_35.png",
+    "question": "Does the word 'flamingo' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_36.png",
+    "question": "Does the word 'yellow' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The image contains the title \"Word Frequency Distribution\" and two words in the word cloud: \"many\" (in yellow) and \"number\" (in grey). The word \"yellow\" itself does not appear as text in the word cloud.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_37.png",
+    "question": "Is the word 'see' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words visible in the word cloud are:\n- miles\n- much\n- first\n- many\n- number\n- one\n- per\n- day\n\nThe word 'see' is not present among the words listed.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_38.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The most frequent word in this word cloud is the largest word, which is \"many\".\n\n$\\boxed{many}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_39.png",
+    "question": "How many unique words are in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "The words visible in the word cloud are:\n1. Word\n2. Frequency\n3. Distribution\n4. two\n5. many\n6. cost\n7. much\n\nCounting the unique words, we have 7 words.\n\nThe final answer is $\\boxed{7}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_40.png",
+    "question": "What is the 3th most frequent word in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "Based on the size of the words in the word cloud, which indicates their frequency:\n1.  \"many\" is the largest, so it is the most frequent.\n2.  \"per\" and \"much\" are the next largest and appear to be roughly the same size.\n\nIt is difficult to definitively say which is the 2nd and which is the 3rd most frequent word as \"per\" and \"much\" appear similar in size.\n\n$\\boxed{per or much}$",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_41.png",
+    "question": "Is the word 'need' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words present in the word cloud are: total, cost, day, much, many, one, made.\nThe word 'need' is not present in this list.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_42.png",
+    "question": "What is the 3th most frequent word in this word cloud?",
+    "answer": "Word: hours",
+    "reasoning": "Based on the size of the words in the word cloud (larger words indicate higher frequency), the words are ranked as follows:\n1.  many\n2.  hours\n3.  day\n\nThe 3rd most frequent word is \"day\".\n\n$\\boxed{day}$",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_43.png",
+    "question": "Does this word cloud contain the word 'librarian'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False.\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_44.png",
+    "question": "Which word is the third most frequent in this word cloud?",
+    "answer": "Word: hours",
+    "reasoning": "In a word cloud, the frequency of a word is represented by its size. We need to identify the third most frequent word by comparing the sizes of the words in the image.\n\nThe words present in the word cloud are:\n- much (orange)\n- many (yellow)\n- total (red, rotated vertically)\n- hours (blue)\n- half (blue)\n- Word Frequency Distribution (title)\n\nWe should ignore the title \"Word Frequency Distribution\" as it is not part of the word cloud itself but describes the visualization.\n\nComparing the sizes of the words:\n- \"many\" is the largest word, indicating it is the most frequent.\n- \"much\", \"total\", and \"hours\" are of intermediate size.\n- \"half\" is the smallest word, indicating it is the least frequent.\n\nNow, let's compare the sizes of the intermediate words: \"much\", \"total\", and \"hours\".\n- \"much\" appears to be larger than both \"total\" and \"hours\".\n- Comparing \"total\" and \"hours\", \"hours\" appears to be slightly larger than \"total\". The letters in \"hours\" are wider and taller than the letters in \"total\".\n\nBased on the visual comparison of sizes, the ranking of the words by frequency from most frequent to least frequent is:\n1. many\n2. much\n3. hours\n4. total\n5. half\n\nTherefore, the third most frequent word is \"hours\".\n\nThe final answer is $\\boxed{hours}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_45.png",
+    "question": "Is the word 'mph' in the word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_46.png",
+    "question": "Is the word 'adults' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_47.png",
+    "question": "What is the second most frequent word in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "The image provided is a word cloud visualizing the frequency distribution of words. In a word cloud, the size of each word corresponds to its frequency in the text. The larger the word, the more frequent it is.\n\nWe need to identify the second most frequent word by examining the size of the words in the cloud.\n\nThe words visible in the word cloud are:\n- miles\n- much\n- day\n- first\n- many\n- pencils\n\nLet's compare the sizes of these words:\n- The word \"many\" is the largest word in the cloud, indicating it is the most frequent word.\n- Looking at the remaining words (\"miles\", \"much\", \"day\", \"first\", \"pencils\"), we need to find the second largest word.\n- Comparing the sizes, \"much\" appears significantly larger than \"day\", \"first\", \"miles\", and \"pencils\".\n- \"day\" and \"first\" are roughly similar in size, and both are smaller than \"much\".\n- \"miles\" and \"pencils\" are the smallest words, indicating the lowest frequencies among those shown.\n\nBased on the visual comparison of sizes, the words ranked by frequency from highest to lowest are:\n1. many (largest)\n2. much (second largest)\n3. day or first (similar size, third/fourth largest)\n4. day or first\n5. miles or pencils (smallest)\n6. miles or pencils\n\nThe second most frequent word is the second largest word in the cloud, which is \"much\".\n\nThe final answer is $\\boxed{much}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_48.png",
+    "question": "How many unique words are in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "The words visible in the word cloud are \"many\", \"year\", \"half\", and \"much\".\nCounting the unique words, we have 4.\n\nThe final answer is $\\boxed{4}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_49.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 3",
+    "reasoning": "The image displays the following words:\n1. Word\n2. Frequency\n3. Distribution\n4. many\n5. hours\n6. much\n\nAll these words are distinct.\n\nCounting the unique words:\n- Word\n- Frequency\n- Distribution\n- many\n- hours\n- much\n\nThere are 6 different words.\n\nThe final answer is $\\boxed{6}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_50.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The words visible in the word cloud are:\n- hours\n- times\n- per\n- many\n- much\n\nCounting the distinct words, we have 5 different words.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_51.png",
+    "question": "What is the 3th most frequent word in this word cloud?",
+    "answer": "Word: half",
+    "reasoning": "Based on the sizes of the words in the word cloud, which represent their frequency:\n1.  \"many\" is the largest, so it is the most frequent.\n2.  \"much\" is the second largest, so it is the second most frequent.\n3.  \"half\" is the smallest, so it is the third most frequent.\n\nThe 3rd most frequent word is \"half\".\n\n$\\boxed{half}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_52.png",
+    "question": "Does the word 'ounces' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "False",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_53.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 2",
+    "reasoning": "There are 2 different words in the word cloud.\n$\\boxed{2}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_54.png",
+    "question": "What is the 3th most frequent word in this word cloud?",
+    "answer": "Word: total",
+    "reasoning": "The words in the word cloud, ordered by size (frequency) from largest to smallest, are:\n1. many\n2. much\n3. total\n4. year\n5. money\n6. times\n7. day\n8. twice\n9. per\n\nThe 3rd most frequent word is the third word in this list.\n\nThe 3rd most frequent word is total.\n\nThe final answer is $\\boxed{total}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_55.png",
+    "question": "Is the word 'keeps' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words visible in the word cloud are:\nfeet\nhours\nlong\nmeter\nmany\nbottles\ntotal\nper\nstore\nminutes\nmuch\n\nThe word 'keeps' is not present in this list.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_56.png",
+    "question": "Does the word 'individual' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The words visible in the word cloud are:\n- total\n- half\n- many\n- students\n- much\n\nThe word 'individual' does not appear in the list of visible words.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_57.png",
+    "question": "What is the total number of unique words in this word cloud?",
+    "answer": "Number of words: 6",
+    "reasoning": "The unique words visible in the word cloud are:\n1. cost\n2. much\n3. many\n4. day\n5. left\n6. minutes\n\nCounting these unique words, we find there are 6 distinct words.\n\nThe final answer is $\\boxed{6}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_58.png",
+    "question": "What is the number of unique words shown in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The words shown in the word cloud are \"many\", \"much\", \"total\", \"cost\", and \"gallons\".\nCounting the number of unique words:\n1. many\n2. much\n3. total\n4. cost\n5. gallons\n\nThere are 5 unique words.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_59.png",
+    "question": "Which word has the second highest frequency in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "$\\boxed{times}$",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_60.png",
+    "question": "Find the second most common word in this word cloud.",
+    "answer": "Word: number",
+    "reasoning": "The largest word in the word cloud is \"many\", indicating it is the most frequent word.\nLooking at the sizes of the other words, \"three\" appears to be the largest among the remaining words (\"cost\", \"three\", \"total\", \"store\", \"times\", \"number\", \"hours\", \"per\"). While \"store\" and \"total\" are also large, \"three\" seems slightly larger.\n\nTherefore, the second most common word is \"three\".\n\n$\\boxed{three}$",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_61.png",
+    "question": "What is the 2th most frequent word in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "The word cloud displays words with their size representing their frequency. The larger the word, the more frequent it is.\n\nObserving the word cloud:\nThe largest word is \"many\".\nThe second largest word appears to be \"much\".\nFollowing \"much\", the next largest word seems to be \"per\".\nThe remaining words (\"bought\", \"number\", \"cheese\", \"week\", \"total\") are smaller.\n\nBased on the size, the frequency order from highest to lowest is approximately:\n1. many\n2. much\n3. per\n4. bought\n5. number\n6. cheese\n7. total\n8. week\n\nTherefore, the second most frequent word is \"much\".\n\nThe final answer is $\\boxed{much}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_62.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 3",
+    "reasoning": "There are 3 different words in the word cloud. The words are \"per\", \"many\", and \"much\".\nThe final answer is $\\boxed{3}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_63.png",
+    "question": "Does this word cloud contain the word 'fred'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The image contains a word cloud with the title \"Word Frequency Distribution\". The words visible in the word cloud are:\n- many (large, blue, top center)\n- cost (medium, orange, left center)\n- per (medium, cyan, bottom left)\n- much (medium, orange, bottom right, oriented vertically)\n- week (medium, cyan, bottom right, next to 'much')\n\nI have checked all the visible words in the word cloud. The word 'fred' is not present in the word cloud.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_64.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 3",
+    "reasoning": "There are 3 different words in the word cloud. The words are \"total\", \"much\", and \"many\".\n\nThe final answer is $\\boxed{3}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_65.png",
+    "question": "Does this word cloud contain the word 'four'?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "Based on the word cloud image, the words visible are \"much\", \"half\", \"many\", \"times\", and \"total\". The word \"four\" is not present.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_66.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "There are 4 different words in the word cloud: \"cost\", \"much\", \"money\", and \"many\".\n\nThe final answer is $\\boxed{4}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_67.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The largest word in the word cloud is \"many\". In a word cloud, the size of a word indicates its frequency. Therefore, the most frequent word is the largest one.\n\nThe most frequent word is \"many\".\n\n$\\boxed{many}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_68.png",
+    "question": "What is the third most common word in this word cloud?",
+    "answer": "Word: bought",
+    "reasoning": "The word cloud shows the frequency of words based on their size. The largest word is the most frequent, the second largest is the second most frequent, and so on.\n\n1.  The largest word is \"many\".\n2.  The second largest word is \"total\".\n3.  The third largest words appear to be \"bought\" and \"much\", which are roughly the same size.\n\nTherefore, both \"bought\" and \"much\" are the third most common words.\n\nThe third most common word(s) is/are $\\boxed{bought, much}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_69.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 6",
+    "reasoning": "The words visible in the word cloud are:\n- many\n- per\n- eggs\n- hours\n- week\n- day\n\nCounting these distinct words, we have 6 different words.\n\nThe final answer is $\\boxed{6}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_70.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The most frequent word in this word cloud is \"many\".",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_71.png",
+    "question": "What word appears second most often in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "The word cloud displays three words: \"many\", \"week\", and \"much\".\nIn a word cloud, the size of a word is typically proportional to its frequency in the source text.\nBy observing the sizes of the words:\n- \"many\" is the largest word.\n- \"much\" is the second largest word.\n- \"week\" is the smallest word.\n\nTherefore, the frequency order from most frequent to least frequent is: \"many\", \"much\", \"week\".\nThe second most frequent word is \"much\".\n\nThe final answer is $\\boxed{much}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_72.png",
+    "question": "Which word appears third most often in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "To determine the third most frequent word in the word cloud, we need to visually inspect the sizes of the words, as the size of a word in a word cloud represents its frequency. Larger words are more frequent.\n\nLet's list the words and compare their sizes:\n1. \"many\": This is the largest word in the word cloud, so it is the most frequent.\n2. \"much\": This word is significantly smaller than \"many\" but larger than all the other words. So, it is the second most frequent word.\n3. \"total\" and \"cost\": These two words appear to be the next largest. Let's compare their sizes carefully. Upon closer inspection, the word \"total\" appears slightly larger than the word \"cost\". The height and thickness of the letters in \"total\" seem a bit more significant than in \"cost\".\n4. \"make\" and \"money\": These two words are smaller than \"total\" and \"cost\". They appear to be of similar size relative to each other.\n5. \"week\" and \"per\": These two words are the smallest words in the word cloud and appear to be of similar size relative to each other.\n\nBased on the visual comparison of sizes, the order of frequency from highest to lowest is most likely:\n1. many\n2. much\n3. total\n4. cost\n5. make / money (tied)\n6. money / make (tied)\n7. week / per (tied)\n8. per / week (tied)\n\nTherefore, the word that appears third most often is \"total\".\n\nThe final answer is $\\boxed{total}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_73.png",
+    "question": "Which word is the third most common in this word cloud?",
+    "answer": "Word: box",
+    "reasoning": "The word cloud displays words with sizes proportional to their frequency. To find the third most common word, we need to rank the words by size from largest to smallest.\n\nThe words visible in the word cloud are:\n- many\n- much\n- number\n- box\n\nLet's visually compare the sizes of these words:\n1. \"many\" is clearly the largest word.\n2. Comparing \"number\", \"box\", and \"much\", \"number\" is larger than \"box\", and \"box\" is larger than \"much\".\n\nRanking the words by size (frequency) from largest to smallest:\n1. many (largest)\n2. number (second largest)\n3. box (third largest)\n4. much (smallest)\n\nThe third most common word is the word that appears third in this ranking.\n\nThe third most common word is \"box\".\n\nThe final answer is $\\boxed{box}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_74.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "Based on the visual size of the words in the word cloud, the word \"much\" appears to be the largest, indicating it is the most frequent word.\n\nThe final answer is $\\boxed{much}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_75.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "Based on the size of the words in the word cloud, the largest word is considered the most frequent. The largest word in the image is \"many\".\n\n$\\boxed{many}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_76.png",
+    "question": "How many unique words are in this word cloud?",
+    "answer": "Number of words: 3",
+    "reasoning": "The image contains the following words in the word cloud itself:\n1.  many\n2.  money\n3.  total\n\nThese are all unique words.\n\nThere are 3 unique words in this word cloud.\n\nThe final answer is $\\boxed{3}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_77.png",
+    "question": "Does the word 'types' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The word cloud displays the following words: 'per', 'many', 'number', 'cheese', 'hours', and 'much'. The title of the image is \"Word Frequency Distribution\".\nExamining these words, I do not see the word 'types'.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_78.png",
+    "question": "What is the 2th most frequent word in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "The words in the word cloud are \"cost\", \"many\", and \"much\".\nThe size of the words represents their frequency.\nComparing the sizes, \"many\" is the largest, \"much\" is the second largest, and \"cost\" is the smallest.\nTherefore, the most frequent word is \"many\", the second most frequent word is \"much\", and the third most frequent word is \"cost\".\n\nThe 2nd most frequent word is \"much\".\n\n$\\boxed{much}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_79.png",
+    "question": "How many unique words appear in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "There are 4 unique words in the word cloud.\n$\\boxed{4}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_80.png",
+    "question": "How many unique words are in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The unique words in the word cloud are \"many\", \"much\", \"one\", \"money\", and \"total\".\nThere are 5 unique words.\n\n$\\boxed{5}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_81.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The words visible in the word cloud are:\n- week\n- students\n- many\n- much\n- total\n\nCounting the number of unique words:\n1. week\n2. students\n3. many\n4. much\n5. total\n\nThere are 5 different words.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_82.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The most frequent word in the word cloud is the largest word. Looking at the image, the words are \"much\", \"buy\", and \"many\". Comparing their sizes, \"many\" is the largest word.\n\nThe most frequent word in this word cloud is $\\boxed{many}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_83.png",
+    "question": "How many unique words are there in this word cloud?",
+    "answer": "Number of words: 3",
+    "reasoning": "There are 3 unique words in the word cloud.\n$\\boxed{3}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_84.png",
+    "question": "Does the word 'giant' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_85.png",
+    "question": "How many unique words are present in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "There are 5 unique words present in this word cloud. The words are \"many\", \"much\", \"money\", \"total\", and \"number\".\n\n$\\boxed{5}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_86.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "There are 5 different words visible in the word cloud. The words are: times, many, cost, much, and half.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_87.png",
+    "question": "What is the count of unique words in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The unique words visible in the word cloud are \"much\", \"cookies\", \"many\", \"money\", and \"total\".\nCounting these unique words, we get 5.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_88.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 5",
+    "reasoning": "The words visible in the word cloud are:\n- many\n- hours\n- students\n- much\n- times\n\nCounting the number of distinct words, we have 5 different words.\n\nThe final answer is $\\boxed{5}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_89.png",
+    "question": "What is the 2th most frequent word in this word cloud?",
+    "answer": "Word: people",
+    "reasoning": "The word cloud shows words of different sizes, where the size of the word represents its frequency in the text. Larger words are more frequent than smaller words.\nObserving the image, we can see the following words and their relative sizes:\n- \"many\": This is clearly the largest word in the cloud.\n- \"people\": This word is the second largest, although significantly smaller than \"many\".\n- \"cost\", \"much\", \"cheese\": These words are smaller than both \"many\" and \"people\", and appear to be of similar size relative to each other.\n\nBased on the size of the words, the order of frequency from most frequent to least frequent is:\n1. many\n2. people\n3. cost, much, cheese (relative order among these three is difficult to determine precisely from the size alone, but they are all less frequent than \"many\" and \"people\").\n\nThe question asks for the 2nd most frequent word. From our analysis, the second largest word, and therefore the second most frequent, is \"people\".\n\nThe final answer is $\\boxed{people}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_90.png",
+    "question": "Is the word 'floors' present in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The image displays a word cloud with the words \"many\", \"much\", and \"cost\". The title of the image is \"Word Frequency Distribution\". I need to check if the word \"floors\" is present in this word cloud.\nLooking at the image, I can clearly see the words \"many\", \"much\", and \"cost\". I do not see the word \"floors\" anywhere in the image.\nTherefore, the word \"floors\" is not present in this word cloud.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_91.png",
+    "question": "How many unique words are there in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "The words in the word cloud are \"much\", \"half\", \"many\", and \"bought\".\nThere are 4 unique words.\n\nThe final answer is $\\boxed{4}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_92.png",
+    "question": "Which word is the third most frequent in this word cloud?",
+    "answer": "Word: long",
+    "reasoning": "Based on the size of the words in the word cloud, which indicates their frequency:\n1.  \"many\" is the largest, so it's the most frequent.\n2.  \"miles\" and \"first\" are the next largest, appearing roughly the same size. Visually comparing them closely, \"miles\" seems slightly larger than \"first\".\n3.  \"total\", \"long\", and \"hour\" are smaller than \"miles\" and \"first\".\n4.  \"per\" is the smallest.\n\nRanking by size (frequency):\n1. many\n2. miles\n3. first\n4. total, long, hour (tied for next ranks)\n5. per\n\nTherefore, the third most frequent word is \"first\".\n\nThe final answer is $\\boxed{first}$.",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_93.png",
+    "question": "Does the word 'percussion' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "Based on the image, the words visible are 'day', 'total', 'much', and 'many'. The word 'percussion' does not appear in the word cloud.\n\n$\\boxed{False}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_94.png",
+    "question": "What word is the third most common in this word cloud?",
+    "answer": "Word: total",
+    "reasoning": "The words in the word cloud, ranked by size (frequency) from largest to smallest, are:\n1. many\n2. total\n3. much\n4. years\n5. one\n\nThe third most common word is \"much\".\n\n$\\boxed{much}$",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_95.png",
+    "question": "How many different words appear in this word cloud?",
+    "answer": "Number of words: 6",
+    "reasoning": "The words visible in the word cloud are:\n1. many\n2. one\n3. total\n4. minutes\n5. much\n6. wants\n\nCounting the distinct words, we find there are 6 different words.\n\nThe final answer is $\\boxed{6}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_96.png",
+    "question": "What is the 2th most frequent word in this word cloud?",
+    "answer": "Word: much",
+    "reasoning": "The word cloud displays words with sizes proportional to their frequency. The larger the word, the more frequent it is.\nLooking at the image:\n- The word \"many\" is the largest, indicating it is the most frequent.\n- The words \"much\" and \"total\" are medium-sized. Visually comparing them, \"much\" appears slightly larger than \"total\".\n- The words \"day\" and \"money\" are the smallest.\n\nBased on the sizes, the ranking of frequency is:\n1. many\n2. much\n3. total\n4. day / money (approximately equal and smallest)\n\nTherefore, the second most frequent word is \"much\".\n\nThe final answer is $\\boxed{much}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_97.png",
+    "question": "What is the most frequent word in this word cloud?",
+    "answer": "Word: many",
+    "reasoning": "The most frequent word in this word cloud is \"total\".",
+    "answer_valid": false,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_98.png",
+    "question": "Does the word 'compared' appear in this word cloud?\n Answer with True or False.",
+    "answer": "Word present: False",
+    "reasoning": "The word cloud shows the following words: 'many', 'much', 'total', 'day', and 'number'. The title is \"Word Frequency Distribution\". The word 'compared' does not appear in the word cloud.\n\nThe final answer is $\\boxed{False}$.",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  },
+  {
+    "image": "saved_graphs/wordcloud_99.png",
+    "question": "How many unique words are in this word cloud?",
+    "answer": "Number of words: 4",
+    "reasoning": "There are 4 unique words in the word cloud.\n$\\boxed{4}$",
+    "answer_valid": true,
+    "chart_type": "wordcloud"
+  }
+]
