@@ -2,23 +2,24 @@ import matplotlib.pyplot as plt
 from collections import Counter
 import random
 from typing import Dict, Optional
-import statistics
 
-class SentenceToBarplot:
+class SentenceToPiechart:
     def __init__(self):
         """
-        Initialize the SentenceToBarplot class.
-        This class provides functionality to generate frequency barplots from text.
+        Initialize the SentenceToPiechart class.
+        This class provides functionality to generate frequency piecharts from text.
         """
         self._frequent_letters: Optional[Dict[str, int]] = None
-        # List of colormaps that work well for bar charts
+        # List of colormaps that work well for pie charts
         self._colormaps = ['viridis', 'plasma', 'inferno', 'magma', 'cividis', 
                           'cool', 'rainbow', 'jet', 'tab10', 'Set3', 'Paired']
-        # Bar style variations
-        self._bar_styles = ['bar', 'barh']
-        self._bar_widths = [0.6, 0.7, 0.8]
-        self._bar_alignments = ['center', 'edge']
-        self._bar_alpha = [0.7, 0.8, 0.9]
+        # Pie chart style variations
+        self._explode_values = [0.05, 0.1, 0.15]  # Explode values for pie slices
+        self._shadow_options = [True, False]
+        self._start_angles = [0, 90, 180, 270]
+        self._wedge_props = [{'linewidth': 1, 'edgecolor': 'white'},
+                            {'linewidth': 2, 'edgecolor': 'black'},
+                            {'linewidth': 1.5, 'edgecolor': 'gray'}]
 
     def _get_random_colors(self, n_colors: int) -> list:
         """
@@ -65,15 +66,15 @@ class SentenceToBarplot:
             raise ValueError("No frequent letters dictionary created yet. Call create_frequent_letters_dict first.")
         return len(self._frequent_letters)
 
-    def get_kth_frequency(self, k: int) -> int:
+    def get_kth_frequent_element(self, k: int) -> tuple[str, int, float]:
         """
-        Get the k-th frequency value from the sorted frequencies.
+        Get the k-th most frequent element and its percentage.
         
         Args:
             k (int): Index of the frequency to get (0 for highest, -1 for lowest)
             
         Returns:
-            int: The k-th frequency value
+            tuple: (letter, frequency, percentage)
             
         Raises:
             ValueError: If k is out of bounds or no frequent letters exist
@@ -87,55 +88,26 @@ class SentenceToBarplot:
         if k >= len(self._frequent_letters) or k < -len(self._frequent_letters):
             raise ValueError(f"k must be between {-len(self._frequent_letters)} and {len(self._frequent_letters)-1}")
             
-        # Sort frequencies in descending order
-        sorted_frequencies = sorted(self._frequent_letters.values(), reverse=True)
-        return sorted_frequencies[k]
-
-    def get_mean_frequency(self) -> float:
-        """
-        Calculate the mean frequency of the frequent letters.
+        # Sort by frequency in descending order
+        sorted_items = sorted(self._frequent_letters.items(), key=lambda x: x[1], reverse=True)
+        letter, frequency = sorted_items[k]
         
-        Returns:
-            float: Mean frequency
-            
-        Raises:
-            ValueError: If no frequent letters exist
-        """
-        if self._frequent_letters is None:
-            raise ValueError("No frequent letters dictionary created yet. Call create_frequent_letters_dict first.")
-            
-        if not self._frequent_letters:
-            raise ValueError("No frequent letters found.")
-            
-        return statistics.mean(self._frequent_letters.values())
-
-    def get_median_frequency(self) -> float:
-        """
-        Calculate the median frequency of the frequent letters.
+        # Calculate percentage
+        total = sum(self._frequent_letters.values())
+        percentage = (frequency / total) * 100
         
-        Returns:
-            float: Median frequency
-            
-        Raises:
-            ValueError: If no frequent letters exist
-        """
-        if self._frequent_letters is None:
-            raise ValueError("No frequent letters dictionary created yet. Call create_frequent_letters_dict first.")
-            
-        if not self._frequent_letters:
-            raise ValueError("No frequent letters found.")
-        return statistics.median(self._frequent_letters.values())
+        return letter, frequency, percentage
 
     def generate_frequency_graph(self, 
                                frequent_letters: Dict[str, int],
-                               filename: str = 'letter_frequency.png', 
+                               filename: str = 'letter_frequency_pie.png', 
                                dpi: int = 300) -> bool:
         """
-        Generate and save a frequency graph from a dictionary of letter frequencies.
+        Generate and save a frequency pie chart from a dictionary of letter frequencies.
         
         Args:
             frequent_letters (Dict[str, int]): Dictionary of letters and their frequencies
-            filename (str): Name of the file to save the graph (default: 'letter_frequency.png')
+            filename (str): Name of the file to save the graph (default: 'letter_frequency_pie.png')
             dpi (int): Resolution of the saved image (default: 300)
             
         Returns:
@@ -147,55 +119,42 @@ class SentenceToBarplot:
                 return False
             
             # Create the figure
-            plt.figure(figsize=(10, 6))
+            plt.figure(figsize=(10, 8))
             
             # Generate random colors
             colors = self._get_random_colors(len(frequent_letters))
             
-            # Randomly select bar style parameters
-            bar_style = random.choice(self._bar_styles)
-            bar_width = random.choice(self._bar_widths)
-            bar_align = random.choice(self._bar_alignments)
-            bar_alpha = random.choice(self._bar_alpha)
+            # Randomly select pie chart style parameters
+            explode = [random.choice(self._explode_values) for _ in range(len(frequent_letters))]
+            shadow = random.choice(self._shadow_options)
+            start_angle = random.choice(self._start_angles)
+            wedge_props = random.choice(self._wedge_props)
             
-            # Create bar plot with random style
-            if bar_style == 'bar':
-                bars = plt.bar(frequent_letters.keys(), 
-                             frequent_letters.values(),
-                             color=colors,
-                             width=bar_width,
-                             align=bar_align,
-                             alpha=bar_alpha)
-                plt.xlabel('Letters')
-                plt.ylabel('Frequency')
-            else:  # barh
-                bars = plt.barh(list(frequent_letters.keys()), 
-                              list(frequent_letters.values()),
-                              color=colors,
-                              height=bar_width,
-                              align=bar_align,
-                              alpha=bar_alpha)
-                plt.xlabel('Frequency')
-                plt.ylabel('Letters')
+            # Calculate percentages for labels
+            total = sum(frequent_letters.values())
+            labels = [f'{letter} ({count}, {count/total*100:.1f}%)' 
+                     for letter, count in frequent_letters.items()]
             
-            plt.title(f'Letter Frequency Distribution')
-            plt.grid(axis='y', linestyle='--', alpha=0.7)
+            # Create pie chart
+            plt.pie(frequent_letters.values(),
+                   labels=labels,
+                   colors=colors,
+                   explode=explode,
+                   shadow=shadow,
+                   startangle=start_angle,
+                   wedgeprops=wedge_props,
+                   autopct='%1.1f%%')
             
-            # Add value labels
-            for i, v in enumerate(frequent_letters.values()):
-                if bar_style == 'bar':
-                    plt.text(i, v, str(v), ha='center', va='bottom')
-                else:  # barh
-                    plt.text(v, i, str(v), ha='left', va='center')
+            plt.title('Letter Frequency Distribution')
             
             # Save the figure
             plt.savefig(filename, dpi=dpi, bbox_inches='tight')
             plt.close()
-            print(f"Graph saved successfully as {filename}")
+            print(f"Pie chart saved successfully as {filename}")
             return True
             
         except Exception as e:
-            print(f"Error saving graph: {str(e)}")
+            print(f"Error saving pie chart: {str(e)}")
             return False
 
 # Example usage
@@ -204,7 +163,7 @@ if __name__ == "__main__":
     sample_text = "This is a sample text with some repeated letters. Let's see how many times each letter appears!"
     
     # Create instance
-    analyzer = SentenceToBarplot()
+    analyzer = SentenceToPiechart()
     
     # Create frequent letters dictionary
     frequent_letters = analyzer.create_frequent_letters_dict(sample_text, frequency_threshold=3)
@@ -212,23 +171,27 @@ if __name__ == "__main__":
     
     # Demonstrate statistical functions
     print(f"Number of frequent letters: {analyzer.get_frequent_letters_count()}")
-    print(f"Highest frequency: {analyzer.get_kth_frequency(0)}")
-    print(f"Lowest frequency: {analyzer.get_kth_frequency(-1)}")
-    print(f"Mean frequency: {analyzer.get_mean_frequency():.2f}")
-    print(f"Median frequency: {analyzer.get_median_frequency():.2f}")
     
-    # Generate graphs using the frequent letters dictionary
+    # Get most frequent element
+    letter, freq, pct = analyzer.get_kth_frequent_element(0)
+    print(f"Most frequent letter: {letter} (frequency: {freq}, {pct:.1f}%)")
+    
+    # Get least frequent element
+    letter, freq, pct = analyzer.get_kth_frequent_element(-1)
+    print(f"Least frequent letter: {letter} (frequency: {freq}, {pct:.1f}%)")
+    
+    # Generate pie charts using the frequent letters dictionary
     analyzer.generate_frequency_graph(
         frequent_letters=frequent_letters,
-        filename='letter_frequency1.png'
+        filename='letter_frequency_pie1.png'
     )
     
     analyzer.generate_frequency_graph(
         frequent_letters=frequent_letters,
-        filename='letter_frequency2.png'
+        filename='letter_frequency_pie2.png'
     )
     
     analyzer.generate_frequency_graph(
         frequent_letters=frequent_letters,
-        filename='letter_frequency3.png'
+        filename='letter_frequency_pie3.png'
     ) 

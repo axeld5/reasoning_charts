@@ -1,7 +1,8 @@
 import json
 import os
 from datasets import load_dataset
-from sentence_level.generate_sample import analyze_text_with_graph, check_answer
+from sentence_level.generate_barplot_sample import analyze_text_with_barplot, check_barplot_answer
+from sentence_level.generate_piechart_sample import analyze_text_with_piechart, check_piechart_answer
 
 def main(sentence_level: bool = True):
     # Create directory for saved graphs if it doesn't exist
@@ -17,19 +18,51 @@ def main(sentence_level: bool = True):
     # Process 100 samples
     for i, example in enumerate(train_data):
         if i < 100:
+            continue
             # Get the question text
             text = example["question"]
             
             # Generate graph and get analysis
             output_filename = f"saved_graphs/graph_{i}.png"
-            question, expected_answer, analysis = analyze_text_with_graph(
+            question, expected_answer, analysis = analyze_text_with_barplot(
                 text=text,
                 frequency_threshold=3,
                 output_filename=output_filename
             )
             
             # Check if answer is valid
-            answer_valid = check_answer(expected_answer, analysis)
+            answer_valid = check_barplot_answer(expected_answer, analysis)
+            
+            # Print if answer is invalid
+            if not answer_valid:
+                print(f"Invalid answer for question: {question}")
+            
+            # Create sample
+            sample = {
+                "image": output_filename,
+                "question": question,
+                "answer": expected_answer,
+                "reasoning": analysis,
+                "answer_valid": answer_valid
+            }
+            
+            samples.append(sample)
+            
+            # Print progress
+            print(f"Processed sample {i+1}/100")
+        elif i < 200:
+            text = example["question"]
+            
+            # Generate graph and get analysis
+            output_filename = f"saved_graphs/graph_{i}.png"
+            question, expected_answer, answer_type, analysis = analyze_text_with_piechart(
+                text=text,
+                frequency_threshold=3,
+                output_filename=output_filename
+            )
+            
+            # Check if answer is valid
+            answer_valid = check_piechart_answer(expected_answer, analysis, answer_type)
             
             # Print if answer is invalid
             if not answer_valid:
@@ -50,7 +83,7 @@ def main(sentence_level: bool = True):
             print(f"Processed sample {i+1}/100")
     
     # Save samples to JSON file
-    output_file = "train_set.json"
+    output_file = "train_set_v2.json"
     with open(output_file, "w") as f:
         json.dump(samples, f, indent=2)
     
