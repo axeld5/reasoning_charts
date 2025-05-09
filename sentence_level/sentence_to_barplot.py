@@ -5,16 +5,21 @@ from typing import Dict, Optional
 import statistics
 import matplotlib.pyplot as plt
 
-class SentenceToGraph:
+class SentenceToBarplot:
     def __init__(self):
         """
         Initialize the SentenceToGraph class.
         This class provides functionality to generate frequency graphs from text.
         """
         self._frequent_letters: Optional[Dict[str, int]] = None
-        # List of colormaps that work well for both pie and bar charts
+        # List of colormaps that work well for bar charts
         self._colormaps = ['viridis', 'plasma', 'inferno', 'magma', 'cividis', 
                           'cool', 'rainbow', 'jet', 'tab10', 'Set3', 'Paired']
+        # Bar style variations
+        self._bar_styles = ['bar', 'barh']
+        self._bar_widths = [0.6, 0.7, 0.8]
+        self._bar_alignments = ['center', 'edge']
+        self._bar_alpha = [0.7, 0.8, 0.9]
 
     def _get_random_colors(self, n_colors: int) -> list:
         """
@@ -120,14 +125,12 @@ class SentenceToGraph:
             
         if not self._frequent_letters:
             raise ValueError("No frequent letters found.")
-            
         return statistics.median(self._frequent_letters.values())
 
     def generate_frequency_graph(self, 
                                frequent_letters: Dict[str, int],
                                filename: str = 'letter_frequency.png', 
-                               dpi: int = 300,
-                               plot_type: str = None) -> bool:
+                               dpi: int = 300) -> bool:
         """
         Generate and save a frequency graph from a dictionary of letter frequencies.
         
@@ -135,7 +138,6 @@ class SentenceToGraph:
             frequent_letters (Dict[str, int]): Dictionary of letters and their frequencies
             filename (str): Name of the file to save the graph (default: 'letter_frequency.png')
             dpi (int): Resolution of the saved image (default: 300)
-            plot_type (str): Type of plot to generate ('pie' or 'bar'). If None, randomly chooses between them.
             
         Returns:
             bool: True if save was successful, False otherwise
@@ -151,36 +153,46 @@ class SentenceToGraph:
             # Generate random colors
             colors = self._get_random_colors(len(frequent_letters))
             
-            # Randomly choose plot type if not specified
-            if plot_type is None:
-                plot_type = random.choice(['pie', 'bar'])
+            # Randomly select bar style parameters
+            bar_style = random.choice(self._bar_styles)
+            bar_width = random.choice(self._bar_widths)
+            bar_align = random.choice(self._bar_alignments)
+            bar_alpha = random.choice(self._bar_alpha)
             
-            if plot_type == 'pie':
-                # Create pie chart
-                plt.pie(frequent_letters.values(), 
-                       labels=frequent_letters.keys(),
-                       autopct=lambda pct: f'{int(pct * sum(frequent_letters.values()) / 100)}',
-                       startangle=90,
-                       colors=colors)
-                plt.title(f'Letter Frequency Distribution (Pie Chart)')
-            else:
-                # Create bar plot
+            # Create bar plot with random style
+            if bar_style == 'bar':
                 bars = plt.bar(frequent_letters.keys(), 
                              frequent_letters.values(),
-                             color=colors)
-                plt.title(f'Letter Frequency Distribution (Bar Plot)')
+                             color=colors,
+                             width=bar_width,
+                             align=bar_align,
+                             alpha=bar_alpha)
                 plt.xlabel('Letters')
                 plt.ylabel('Frequency')
-                plt.grid(axis='y', linestyle='--', alpha=0.7)
-                
-                # Add value labels on top of each bar
-                for i, v in enumerate(frequent_letters.values()):
+            else:  # barh
+                bars = plt.barh(list(frequent_letters.keys()), 
+                              list(frequent_letters.values()),
+                              color=colors,
+                              height=bar_width,
+                              align=bar_align,
+                              alpha=bar_alpha)
+                plt.xlabel('Frequency')
+                plt.ylabel('Letters')
+            
+            plt.title(f'Letter Frequency Distribution')
+            plt.grid(axis='y', linestyle='--', alpha=0.7)
+            
+            # Add value labels
+            for i, v in enumerate(frequent_letters.values()):
+                if bar_style == 'bar':
                     plt.text(i, v, str(v), ha='center', va='bottom')
+                else:  # barh
+                    plt.text(v, i, str(v), ha='left', va='center')
             
             # Save the figure
             plt.savefig(filename, dpi=dpi, bbox_inches='tight')
             plt.close()
-            print(f"Graph saved successfully as {filename} ({plot_type} chart)")
+            print(f"Graph saved successfully as {filename}")
             return True
             
         except Exception as e:
@@ -193,7 +205,7 @@ if __name__ == "__main__":
     sample_text = "This is a sample text with some repeated letters. Let's see how many times each letter appears!"
     
     # Create instance
-    analyzer = SentenceToGraph()
+    analyzer = SentenceToBarplot()
     
     # Create frequent letters dictionary
     frequent_letters = analyzer.create_frequent_letters_dict(sample_text, frequency_threshold=3)
@@ -209,17 +221,15 @@ if __name__ == "__main__":
     # Generate graphs using the frequent letters dictionary
     analyzer.generate_frequency_graph(
         frequent_letters=frequent_letters,
-        filename='letter_frequency_random1.png'
+        filename='letter_frequency1.png'
     )
     
     analyzer.generate_frequency_graph(
         frequent_letters=frequent_letters,
-        filename='letter_frequency_pie.png',
-        plot_type='pie'
+        filename='letter_frequency2.png'
     )
     
     analyzer.generate_frequency_graph(
         frequent_letters=frequent_letters,
-        filename='letter_frequency_bar.png',
-        plot_type='bar'
+        filename='letter_frequency3.png'
     ) 
