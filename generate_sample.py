@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from sentence_level.sentence_to_barplot import SentenceToBarplot
 import random
+import re
 
 load_dotenv()
 
@@ -61,6 +62,47 @@ def rewrite_question_with_gemini(client: genai.Client, question: str) -> str:
     )
     return response.text
 
+def check_answer(expected_answer: str, model_answer: str) -> bool:
+    """
+    Check if the model's answer matches the expected answer using regex.
+    
+    Args:
+        expected_answer (str): The expected answer string
+        model_answer (str): The model's response
+        
+    Returns:
+        bool: True if the answer matches, False otherwise
+    """
+    # Extract the answer from within <answer> tags if present
+    answer_match = re.search(r'<answer>(.*?)</answer>', model_answer, re.DOTALL)
+    if answer_match:
+        model_answer = answer_match.group(1).strip()
+    
+    # Extract numeric values from both strings
+    expected_numbers = re.findall(r'\d+\.?\d*', expected_answer)
+    model_numbers = re.findall(r'\d+\.?\d*', model_answer)
+    
+    # If no numbers found, do a simple string comparison
+    if not expected_numbers:
+        return expected_answer.lower() in model_answer.lower()
+    
+    # Compare numeric values
+    if len(expected_numbers) != len(model_numbers):
+        return False
+    
+    # Compare each number with some tolerance for floating point values
+    for exp_num, mod_num in zip(expected_numbers, model_numbers):
+        try:
+            exp_float = float(exp_num)
+            mod_float = float(mod_num)
+            if abs(exp_float - mod_float) > 0.01:  # 0.01 tolerance for floating point comparison
+                return False
+        except ValueError:
+            if exp_num != mod_num:
+                return False
+    
+    return True
+
 def analyze_text_with_graph(text: str, frequency_threshold: int = 3, output_filename: str = "letter_frequency.png") -> tuple[str, str, str]:
     """
     Analyze text by generating a frequency graph and using Gemini to analyze it.
@@ -99,10 +141,11 @@ def analyze_text_with_graph(text: str, frequency_threshold: int = 3, output_file
     # Load the generated image
     image = Image.open(output_filename)
     
-    # Get Gemini's analysis
+    # Get Gemini's analysis with modified prompt
+    prompt = f"{question}\nPlease provide your answer within <answer> tags."
     response = client.models.generate_content(
         model="models/gemini-2.5-flash-preview-04-17",
-        contents=[image, question]
+        contents=[image, prompt]
     )
     
     return question, expected_answer, response.text
@@ -114,4 +157,5 @@ if __name__ == "__main__":
     print(f"Question: {question}")
     print(f"Expected Answer: {expected_answer}")
     print(f"Gemini's Analysis: {analysis}")
+    print(f"Answer is correct: {check_answer(expected_answer, analysis)}")
 
