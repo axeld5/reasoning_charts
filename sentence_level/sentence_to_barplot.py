@@ -3,7 +3,6 @@ from collections import Counter
 import random
 from typing import Dict, Optional
 import statistics
-import matplotlib.pyplot as plt
 
 class SentenceToBarplot:
     def __init__(self):

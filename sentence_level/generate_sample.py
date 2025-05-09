@@ -73,8 +73,8 @@ def check_answer(expected_answer: str, model_answer: str) -> bool:
     Returns:
         bool: True if the answer matches, False otherwise
     """
-    # Extract the answer from within <answer> tags if present
-    answer_match = re.search(r'<answer>(.*?)</answer>', model_answer, re.DOTALL)
+    # Extract the answer from within \boxed{} if present, handling both single and double backslash formats
+    answer_match = re.search(r'\$\\?\\boxed{(.*?)}\$', model_answer, re.DOTALL)
     if answer_match:
         model_answer = answer_match.group(1).strip()
     
@@ -142,7 +142,7 @@ def analyze_text_with_graph(text: str, frequency_threshold: int = 3, output_file
     image = Image.open(output_filename)
     
     # Get Gemini's analysis with modified prompt
-    prompt = f"{question}\nPlease provide your answer within <answer> tags."
+    prompt = f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."
     response = client.models.generate_content(
         model="models/gemini-2.5-flash-preview-04-17",
         contents=[image, prompt]
