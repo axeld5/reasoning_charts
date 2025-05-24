@@ -146,9 +146,9 @@ train_size = int(0.8 * dataset_size)
 test_size = dataset_size - train_size
 
 # Use a smaller subset for faster training/testing during development
-max_samples = min(100, dataset_size)  # Use at most 100 samples
-train_size = int(0.8 * max_samples)
-test_size = max_samples - train_size
+#max_samples = min(100, dataset_size)  # Use at most 100 samples
+#train_size = int(0.8 * max_samples)
+#test_size = max_samples - train_size
 
 train_ds = full_dataset.select(range(train_size))
 test_ds = full_dataset.select(range(train_size, train_size + test_size))
