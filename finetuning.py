@@ -175,6 +175,7 @@ args = TrainingArguments(
     optim="paged_adamw_32bit",
     save_strategy="epoch",
     save_total_limit=1,
+    bf16=True,
     output_dir="smolvlm2_ocr_thinking",
 )
 
