@@ -20,7 +20,6 @@ def main(sentence_level: bool = False, corpus_level: bool = True, dataset_name: 
     # Process 100 samples
     if sentence_level:
         for i, example in enumerate(train_data):
-        
             if i < 100:
                 # Get the question text
                 text = example["question"]

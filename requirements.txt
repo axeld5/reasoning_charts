@@ -8,3 +8,5 @@ numpy
 pandas
 wordcloud
 nltk
+transformers
+torch
