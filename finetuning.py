@@ -15,7 +15,7 @@ from corpus_level.generate_wordcloud_sample import check_wordcloud_answer
 load_dotenv()
 model_id = "HuggingFaceTB/SmolVLM2-256M-Video-Instruct" 
 
-device = "cuda"
+device = "cuda:0"
 model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype="auto").to(device)
 processor = AutoProcessor.from_pretrained(model_id)
 image_token_id = processor.tokenizer.additional_special_tokens_ids[
