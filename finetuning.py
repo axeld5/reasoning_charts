@@ -16,7 +16,7 @@ load_dotenv()
 model_id = "HuggingFaceTB/SmolVLM2-256M-Video-Instruct" 
 
 device = "cuda"
-model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype=torch.bfloat16, attn_implementation="eager").to(device)
+model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype="auto", attn_implementation="eager").to(device)
 processor = AutoProcessor.from_pretrained(model_id)
 image_token_id = processor.tokenizer.additional_special_tokens_ids[
             processor.tokenizer.additional_special_tokens.index("<image>")]
