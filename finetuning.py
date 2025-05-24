@@ -16,7 +16,7 @@ load_dotenv()
 model_id = "HuggingFaceTB/SmolVLM2-256M-Video-Instruct" 
 
 device = "cuda"
-model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype="auto", attn_implementation="eager").to(device)
+model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype="auto").to(device)
 processor = AutoProcessor.from_pretrained(model_id)
 image_token_id = processor.tokenizer.additional_special_tokens_ids[
             processor.tokenizer.additional_special_tokens.index("<image>")]
@@ -178,7 +178,6 @@ args = TrainingArguments(
     save_strategy="epoch",
     save_total_limit=1,
     output_dir="smolvlm2_ocr_thinking",
-    bf16=True,
     dataloader_pin_memory=False,
     evaluation_strategy="no",  # We'll do manual evaluation
 )
