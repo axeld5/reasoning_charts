@@ -163,7 +163,7 @@ print(f"Original model accuracy: {original_results['accuracy']:.3f} ({original_r
 
 # Training arguments
 args = TrainingArguments(
-    num_train_epochs=3,  # Reduced for faster training
+    num_train_epochs=10,  # Reduced for faster training
     remove_unused_columns=False,
     per_device_train_batch_size=1,
     gradient_accumulation_steps=4,
@@ -176,8 +176,6 @@ args = TrainingArguments(
     save_strategy="epoch",
     save_total_limit=1,
     output_dir="smolvlm2_ocr_thinking",
-    dataloader_pin_memory=False,
-    evaluation_strategy="no",  # We'll do manual evaluation
 )
 
 # Train the model
