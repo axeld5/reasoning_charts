@@ -82,8 +82,6 @@ def generate_response(model, processor, image: Image.Image, question: str) -> st
         generated_ids = model.generate(
             **inputs,
             max_new_tokens=500,
-            do_sample=False,
-            temperature=0.0
         )
     
     # Decode only the generated part
