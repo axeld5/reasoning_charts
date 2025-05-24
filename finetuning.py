@@ -16,7 +16,9 @@ load_dotenv()
 model_id = "HuggingFaceTB/SmolVLM2-256M-Video-Instruct" 
 
 device = "cuda:0"
-model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype="auto").to(device)
+model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype=torch.bfloat16,
+    _attn_implementation="flash_attention_2"
+).to("cuda")
 processor = AutoProcessor.from_pretrained(model_id)
 image_token_id = processor.tokenizer.additional_special_tokens_ids[
             processor.tokenizer.additional_special_tokens.index("<image>")]
@@ -76,7 +78,7 @@ def generate_response(model, processor, image: Image.Image, question: str) -> st
     ]
     
     text = processor.apply_chat_template(messages, add_generation_prompt=True)
-    inputs = processor(text=text, images=[image], return_tensors="pt").to(device)
+    inputs = processor(text=text, images=[image], return_tensors="pt").to(model.device, dtype=torch.bfloat16)
     
     with torch.no_grad():
         generated_ids = model.generate(
