@@ -37,7 +37,7 @@ def collate_fn(examples):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": question},
+                    {"type": "text", "text": f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."},
                     {"type": "image"},
                 ]
             },
@@ -69,7 +69,7 @@ def generate_response(model, processor, image: Image.Image, question: str) -> st
         {
             "role": "user",
             "content": [
-                {"type": "text", "text": question},
+                {"type": "text", "text": f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."},
                 {"type": "image"},
             ]
         }
