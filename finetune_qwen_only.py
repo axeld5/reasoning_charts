@@ -239,7 +239,7 @@ def generate_response(model, processor, image: Image.Image, question: str) -> st
         with torch.no_grad():
             generated_ids = model.generate(
                 **inputs,
-                max_new_tokens=200,  # Reduced for memory
+                max_new_tokens=500,  # Reduced for memory
                 do_sample=False,
                 pad_token_id=processor.tokenizer.eos_token_id,
             )
@@ -298,7 +298,7 @@ def evaluate_model_subset(model, processor, test_dataset, max_samples: int = 20)
             if is_correct:
                 correct += 1
             total += 1
-            
+            print(f"Question: {question}")
             print(f"Expected: {expected_answer}")
             print(f"Generated: {generated_answer}")
             print(f"Correct: {is_correct}")
@@ -332,8 +332,8 @@ def main():
     train_size = int(0.8 * dataset_size)
     
     # Use smaller subsets for memory efficiency
-    max_train_samples = min(100, train_size)  # Drastically limit training samples for testing
-    max_test_samples = min(50, dataset_size - train_size)  # Limit test samples
+    max_train_samples = train_size  # Drastically limit training samples for testing
+    max_test_samples = dataset_size - train_size  # Limit test samples
     
     train_ds = full_dataset.select(range(max_train_samples))
     test_ds = full_dataset.select(range(train_size, train_size + max_test_samples))
@@ -397,7 +397,7 @@ def main():
         processor.save_pretrained(training_args.output_dir)
         
         print("Evaluating fine-tuned model...")
-        results = evaluate_model_subset(model, processor, test_ds, max_samples=10)
+        results = evaluate_model_subset(model, processor, test_ds, max_samples=len(test_ds))
         
         print(f"\nFinal Results:")
         print(f"Accuracy: {results['accuracy']:.3f}")
