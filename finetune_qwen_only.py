@@ -321,7 +321,7 @@ def main():
     
     # Use smaller subsets for memory efficiency
     max_train_samples = min(1000, train_size)  # Limit training samples
-    max_test_samples = 50  # Limit test samples
+    max_test_samples = dataset_size - train_size  # Limit test samples
     
     train_ds = full_dataset.select(range(max_train_samples))
     test_ds = full_dataset.select(range(train_size, train_size + max_test_samples))
@@ -353,9 +353,6 @@ def main():
         eval_steps=100,
         save_strategy="steps",
         save_total_limit=2,
-        load_best_model_at_end=True,
-        metric_for_best_model="eval_loss",
-        greater_is_better=False,
         bf16=True,
         dataloader_pin_memory=False,  # Disable pin memory to save GPU memory
         dataloader_num_workers=0,  # Reduce workers to save memory
@@ -371,7 +368,6 @@ def main():
         model=model,
         args=training_args,
         train_dataset=train_ds,
-        eval_dataset=test_ds.select(range(min(20, len(test_ds)))),  # Small eval set
         data_collator=collate_fn,
     )
     
@@ -389,7 +385,7 @@ def main():
         processor.save_pretrained(training_args.output_dir)
         
         print("Evaluating fine-tuned model...")
-        results = evaluate_model_subset(model, processor, test_ds, max_samples=30)
+        results = evaluate_model_subset(model, processor, test_ds, max_samples=len(test_ds))
         
         print(f"\nFinal Results:")
         print(f"Accuracy: {results['accuracy']:.3f}")
