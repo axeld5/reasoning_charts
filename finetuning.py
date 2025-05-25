@@ -71,7 +71,7 @@ def get_image_token_id(processor, model_name: str):
         return processor.tokenizer.additional_special_tokens_ids[
             processor.tokenizer.additional_special_tokens.index("<image>")]
 
-def collate_fn_factory(processor, image_token_id, model_name: str):
+def collate_fn_factory(processor, image_token_id, model_name: str, use_reasoning: bool = False):
     """Factory function to create collate_fn for different models."""
     
     def collate_fn(examples):
@@ -84,8 +84,10 @@ def collate_fn_factory(processor, image_token_id, model_name: str):
                 image = image.convert('RGB')
             question = example["question"]
             question = f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."
-            if example["answer_valid"] == True:
-                answer = example["reasoning"]
+            
+            # Use reasoning answers if specified, otherwise use direct answers
+            if use_reasoning:
+                answer = example["reasoning"] if example["answer_valid"] == True else example["answer"]
             else:
                 answer = example["answer"]
             
@@ -303,32 +305,33 @@ for model_name in MODELS_CONFIG.keys():
         print(f"Error evaluating {model_name}: {e}")
         all_results[model_name] = {"error": str(e)}
 
-# Fine-tune SmolVLM2-256M (original training code)
-print(f"\n{'='*60}")
-print("FINE-TUNING SMOLVLM2-256M")
-print('='*60)
-
-# Reload SmolVLM2-256M for training
-model_id = "HuggingFaceTB/SmolVLM2-256M-Video-Instruct"
-model = AutoModelForImageTextToText.from_pretrained(model_id, device_map="auto", torch_dtype=torch.bfloat16).to("cuda")
-processor = AutoProcessor.from_pretrained(model_id)
-image_token_id = processor.tokenizer.additional_special_tokens_ids[
-            processor.tokenizer.additional_special_tokens.index("<image>")]
-
 # Prepare training data
 train_ds = full_dataset.select(range(train_size))
-collate_fn = collate_fn_factory(processor, image_token_id, "smolvlm2_256m")
-
 print(f"Training samples: {len(train_ds)}")
+
+# FINE-TUNING 1: SmolVLM2-256M with non-reasoning answers
+print(f"\n{'='*60}")
+print("FINE-TUNING SMOLVLM2-256M (NON-REASONING)")
+print('='*60)
+
+# Load SmolVLM2-256M for training
+model_id_smol = "HuggingFaceTB/SmolVLM2-256M-Video-Instruct"
+model_smol = AutoModelForImageTextToText.from_pretrained(model_id_smol, device_map="auto", torch_dtype=torch.bfloat16).to("cuda")
+processor_smol = AutoProcessor.from_pretrained(model_id_smol)
+image_token_id_smol = processor_smol.tokenizer.additional_special_tokens_ids[
+            processor_smol.tokenizer.additional_special_tokens.index("<image>")]
+
+# Collate function for non-reasoning answers
+collate_fn_smol = collate_fn_factory(processor_smol, image_token_id_smol, "smolvlm2_256m", use_reasoning=False)
 
 # Evaluate original SmolVLM2-256M model
 print("Evaluating original SmolVLM2-256M model...")
-original_results = evaluate_model(model, processor, test_ds, "smolvlm2_256m")
-print(f"Original SmolVLM2-256M model accuracy: {original_results['accuracy']:.3f} ({original_results['correct']}/{original_results['total']})")
+original_results_smol = evaluate_model(model_smol, processor_smol, test_ds, "smolvlm2_256m")
+print(f"Original SmolVLM2-256M model accuracy: {original_results_smol['accuracy']:.3f} ({original_results_smol['correct']}/{original_results_smol['total']})")
 
-# Training arguments
-args = TrainingArguments(
-    num_train_epochs=10,  # Reduced for faster training
+# Training arguments for SmolVLM
+args_smol = TrainingArguments(
+    num_train_epochs=10,
     remove_unused_columns=False,
     per_device_train_batch_size=1,
     gradient_accumulation_steps=4,
@@ -341,28 +344,89 @@ args = TrainingArguments(
     save_strategy="epoch",
     save_total_limit=1,
     bf16=True,
-    output_dir="smolvlm2_256m_chart_thinking",
+    output_dir="smolvlm2_256m_nonreasoning",
 )
 
-# Train the model
-trainer = Trainer(
-    model=model,
+# Train SmolVLM2-256M
+trainer_smol = Trainer(
+    model=model_smol,
     train_dataset=train_ds,
-    data_collator=collate_fn,
-    args=args
+    data_collator=collate_fn_smol,
+    args=args_smol
 )
 
-print("Starting training...")
-trainer.train()
+print("Starting SmolVLM2-256M training (non-reasoning)...")
+trainer_smol.train()
 
-# Evaluate fine-tuned model
+# Evaluate fine-tuned SmolVLM2-256M model
 print("Evaluating fine-tuned SmolVLM2-256M model...")
-finetuned_results = evaluate_model(model, processor, test_ds, "smolvlm2_256m")
-print(f"Fine-tuned SmolVLM2-256M model accuracy: {finetuned_results['accuracy']:.3f} ({finetuned_results['correct']}/{finetuned_results['total']})")
+finetuned_results_smol = evaluate_model(model_smol, processor_smol, test_ds, "smolvlm2_256m")
+print(f"Fine-tuned SmolVLM2-256M model accuracy: {finetuned_results_smol['accuracy']:.3f} ({finetuned_results_smol['correct']}/{finetuned_results_smol['total']})")
+
+# Clean up SmolVLM memory before loading Qwen
+del model_smol, processor_smol, trainer_smol
+torch.cuda.empty_cache()
+
+# FINE-TUNING 2: Qwen2.5 VL 3B with reasoning answers
+print(f"\n{'='*60}")
+print("FINE-TUNING QWEN2.5-VL-3B (REASONING)")
+print('='*60)
+
+# Load Qwen2.5 VL 3B for training
+model_id_qwen = "Qwen/Qwen2.5-VL-3B-Instruct"
+model_qwen = Qwen2_5_VLForConditionalGeneration.from_pretrained(model_id_qwen, device_map="auto", torch_dtype=torch.bfloat16).to("cuda")
+processor_qwen = AutoProcessor.from_pretrained(model_id_qwen)
+
+# Get image token ID for Qwen
+image_token_id_qwen = get_image_token_id(processor_qwen, "qwen2.5_vl_3b")
+
+# Collate function for reasoning answers
+collate_fn_qwen = collate_fn_factory(processor_qwen, image_token_id_qwen, "qwen2.5_vl_3b", use_reasoning=True)
+
+# Evaluate original Qwen2.5 VL 3B model
+print("Evaluating original Qwen2.5 VL 3B model...")
+original_results_qwen = evaluate_model(model_qwen, processor_qwen, test_ds, "qwen2.5_vl_3b")
+print(f"Original Qwen2.5 VL 3B model accuracy: {original_results_qwen['accuracy']:.3f} ({original_results_qwen['correct']}/{original_results_qwen['total']})")
+
+# Training arguments for Qwen (smaller batch size due to larger model)
+args_qwen = TrainingArguments(
+    num_train_epochs=5,  # Fewer epochs for larger model
+    remove_unused_columns=False,
+    per_device_train_batch_size=1,
+    gradient_accumulation_steps=8,  # Larger accumulation for effective batch size
+    warmup_steps=2,
+    learning_rate=1e-5,  # Lower learning rate for larger model
+    weight_decay=1e-6,
+    adam_beta2=0.999,
+    logging_steps=10,
+    optim="paged_adamw_32bit",
+    save_strategy="epoch",
+    save_total_limit=1,
+    bf16=True,
+    output_dir="qwen2_5_vl_3b_reasoning",
+)
+
+# Train Qwen2.5 VL 3B
+trainer_qwen = Trainer(
+    model=model_qwen,
+    train_dataset=train_ds,
+    data_collator=collate_fn_qwen,
+    args=args_qwen
+)
+
+print("Starting Qwen2.5 VL 3B training (reasoning)...")
+trainer_qwen.train()
+
+# Evaluate fine-tuned Qwen2.5 VL 3B model
+print("Evaluating fine-tuned Qwen2.5 VL 3B model...")
+finetuned_results_qwen = evaluate_model(model_qwen, processor_qwen, test_ds, "qwen2.5_vl_3b")
+print(f"Fine-tuned Qwen2.5 VL 3B model accuracy: {finetuned_results_qwen['accuracy']:.3f} ({finetuned_results_qwen['correct']}/{finetuned_results_qwen['total']})")
 
 # Add fine-tuning results to all_results
-all_results["smolvlm2_256m_original"] = original_results
-all_results["smolvlm2_256m_finetuned"] = finetuned_results
+all_results["smolvlm2_256m_original"] = original_results_smol
+all_results["smolvlm2_256m_finetuned_nonreasoning"] = finetuned_results_smol
+all_results["qwen2_5_vl_3b_original"] = original_results_qwen
+all_results["qwen2_5_vl_3b_finetuned_reasoning"] = finetuned_results_qwen
 
 # Print comprehensive comparison
 print("\n" + "="*80)
@@ -376,14 +440,24 @@ for model_name, results in all_results.items():
     elif model_name not in ["smolvlm2_256m_original", "smolvlm2_256m_finetuned"]:
         print(f"{model_name}: {results['accuracy']:.3f} ({results['correct']}/{results['total']})")
 
-print(f"\nFINE-TUNING COMPARISON (SmolVLM2-256M):")
-if "smolvlm2_256m_original" in all_results and "smolvlm2_256m_finetuned" in all_results:
-    orig = all_results["smolvlm2_256m_original"] 
-    ft = all_results["smolvlm2_256m_finetuned"]
-    improvement = ft['accuracy'] - orig['accuracy']
-    print(f"Original SmolVLM2-256M: {orig['accuracy']:.3f} ({orig['correct']}/{orig['total']})")
-    print(f"Fine-tuned SmolVLM2-256M: {ft['accuracy']:.3f} ({ft['correct']}/{ft['total']})")
-    print(f"Improvement: {improvement:.3f} ({improvement*100:.1f}%)")
+print(f"\nFINE-TUNING COMPARISON:")
+print(f"\nSmolVLM2-256M (Non-Reasoning):")
+if "smolvlm2_256m_original" in all_results and "smolvlm2_256m_finetuned_nonreasoning" in all_results:
+    orig_smol = all_results["smolvlm2_256m_original"] 
+    ft_smol = all_results["smolvlm2_256m_finetuned_nonreasoning"]
+    improvement_smol = ft_smol['accuracy'] - orig_smol['accuracy']
+    print(f"  Original: {orig_smol['accuracy']:.3f} ({orig_smol['correct']}/{orig_smol['total']})")
+    print(f"  Fine-tuned: {ft_smol['accuracy']:.3f} ({ft_smol['correct']}/{ft_smol['total']})")
+    print(f"  Improvement: {improvement_smol:.3f} ({improvement_smol*100:.1f}%)")
+
+print(f"\nQwen2.5 VL 3B (Reasoning):")
+if "qwen2_5_vl_3b_original" in all_results and "qwen2_5_vl_3b_finetuned_reasoning" in all_results:
+    orig_qwen = all_results["qwen2_5_vl_3b_original"] 
+    ft_qwen = all_results["qwen2_5_vl_3b_finetuned_reasoning"]
+    improvement_qwen = ft_qwen['accuracy'] - orig_qwen['accuracy']
+    print(f"  Original: {orig_qwen['accuracy']:.3f} ({orig_qwen['correct']}/{orig_qwen['total']})")
+    print(f"  Fine-tuned: {ft_qwen['accuracy']:.3f} ({ft_qwen['correct']}/{ft_qwen['total']})")
+    print(f"  Improvement: {improvement_qwen:.3f} ({improvement_qwen*100:.1f}%)")
 
 print(f"\nMODEL CAPABILITIES:")
 print("• SmolVLM2-256M: Lightweight multimodal support ✓")
@@ -397,6 +471,10 @@ final_results = {
     "notes": {
         "supported_models": ["SmolVLM2-256M", "SmolVLM2-2.2B", "Qwen-2.5-VL-3B"],
         "dataset": "axel-darmouni/anychart-vqa",
+        "finetuning_experiments": {
+            "SmolVLM2-256M": "Fine-tuned with non-reasoning answers (direct answers)",
+            "Qwen-2.5-VL-3B": "Fine-tuned with reasoning answers (step-by-step explanations)"
+        },
         "model_details": {
             "SmolVLM2-256M": "Lightweight multimodal model for efficient inference",
             "SmolVLM2-2.2B": "Enhanced multimodal model with better performance",
