@@ -288,25 +288,6 @@ def evaluate_model_subset(model, processor, test_dataset, max_samples: int = 20)
         "total": total
     }
 
-class MemoryOptimizedTrainer(Trainer):
-    """Custom trainer with memory optimizations"""
-    
-    def training_step(self, model, inputs):
-        """Override training step to add memory management"""
-        try:
-            return super().training_step(model, inputs)
-        except torch.cuda.OutOfMemoryError:
-            print("OOM in training step, clearing memory...")
-            clear_memory()
-            # Try with gradient accumulation
-            return super().training_step(model, inputs)
-    
-    def _save_checkpoint(self, model, trial, metrics=None):
-        """Override save checkpoint to clear memory"""
-        result = super()._save_checkpoint(model, trial, metrics)
-        clear_memory()
-        return result
-
 def main():
     print("Starting Qwen-2.5-VL-3B Fine-tuning with Memory Optimization")
     print("=" * 70)
@@ -364,7 +345,7 @@ def main():
     )
     
     # Create trainer with memory optimizations
-    trainer = MemoryOptimizedTrainer(
+    trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_ds,
