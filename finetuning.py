@@ -83,6 +83,7 @@ def collate_fn_factory(processor, image_token_id, model_name: str):
             if image.mode != 'RGB':
                 image = image.convert('RGB')
             question = example["question"]
+            question = f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."
             if example["answer_valid"] == True:
                 answer = example["reasoning"]
             else:
@@ -94,7 +95,7 @@ def collate_fn_factory(processor, image_token_id, model_name: str):
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."},
+                            {"type": "text", "text": question},
                             {"type": "image"},
                         ]
                     },
@@ -110,7 +111,7 @@ def collate_fn_factory(processor, image_token_id, model_name: str):
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."},
+                            {"type": "text", "text": question},
                             {"type": "image"},
                         ]
                     },
@@ -153,7 +154,7 @@ def generate_response_factory(model_name: str):
                 {
                     "role": "user",
                     "content": [
-                        {"type": "text", "text": f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."},
+                        {"type": "text", "text": question},
                         {"type": "image", "image": image},
                     ]
                 }
@@ -175,7 +176,7 @@ def generate_response_factory(model_name: str):
                 {
                     "role": "user",
                     "content": [
-                        {"type": "text", "text": f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."},
+                        {"type": "text", "text": question},
                         {"type": "image"},
                     ]
                 }
@@ -226,6 +227,7 @@ def evaluate_model(model, processor, test_dataset, model_name: str) -> Dict[str,
     for example in test_dataset:
         image = example["image"]
         question = example["question"]
+        question = f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."
         expected_answer = example["answer"]
         chart_type = example["chart_type"]
         
@@ -263,7 +265,7 @@ train_size = int(0.8 * dataset_size)
 test_size = dataset_size - train_size
 
 # Use a smaller subset for faster evaluation during development
-max_samples = min(50, test_size)  # Use at most 50 test samples for quick evaluation
+max_samples = test_size  # Use at most 50 test samples for quick evaluation
 test_ds = full_dataset.select(range(train_size, train_size + max_samples))
 
 print(f"Test samples: {len(test_ds)}")
@@ -326,7 +328,7 @@ print(f"Original SmolVLM2-256M model accuracy: {original_results['accuracy']:.3f
 
 # Training arguments
 args = TrainingArguments(
-    num_train_epochs=3,  # Reduced for faster training
+    num_train_epochs=10,  # Reduced for faster training
     remove_unused_columns=False,
     per_device_train_batch_size=1,
     gradient_accumulation_steps=4,
