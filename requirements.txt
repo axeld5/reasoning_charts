@@ -10,3 +10,5 @@ wordcloud
 nltk
 transformers
 torch
+qwen-vl-utils[decord]
+accelerate
