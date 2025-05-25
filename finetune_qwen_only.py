@@ -58,8 +58,7 @@ def load_qwen_model_optimized():
         model_id,
         quantization_config=bnb_config,
         device_map="auto",
-        torch_dtype=torch.bfloat16,
-        attn_implementation="flash_attention_2",  # Use flash attention if available
+        torch_dtype=torch.bfloat16,  # Use flash attention if available
     )
     
     # Enable gradient checkpointing to save memory
