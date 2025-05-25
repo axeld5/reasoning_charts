@@ -353,7 +353,7 @@ def main():
     # Training arguments optimized for memory
     training_args = TrainingArguments(
         output_dir="qwen2_5_vl_3b_reasoning_optimized",
-        num_train_epochs=2,  # Further reduced epochs for testing
+        num_train_epochs=10,  # Further reduced epochs for testing
         per_device_train_batch_size=1,  # Even smaller batch size
         gradient_accumulation_steps=32,  # Larger accumulation to compensate
         warmup_steps=5,
