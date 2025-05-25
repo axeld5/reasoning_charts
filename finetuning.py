@@ -83,7 +83,7 @@ def collate_fn_factory(processor, image_token_id, model_name: str):
             if image.mode != 'RGB':
                 image = image.convert('RGB')
             question = example["question"]
-            if example["answer_valid"] == "true":
+            if example["answer_valid"] == True:
                 answer = example["reasoning"]
             else:
                 answer = example["answer"]
