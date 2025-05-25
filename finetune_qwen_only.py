@@ -351,7 +351,6 @@ def main():
         logging_steps=5,
         save_steps=100,
         eval_steps=100,
-        evaluation_strategy="steps",
         save_strategy="steps",
         save_total_limit=2,
         load_best_model_at_end=True,
