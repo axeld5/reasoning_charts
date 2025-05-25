@@ -155,7 +155,7 @@ def collate_fn_factory(processor, image_token_id, use_reasoning: bool = True):
             question = f"""{question}\n""" + r"Now think and answer the question. Put your answer within $\boxed{}$ tags."
             
             # Use reasoning answers if specified and valid, otherwise use direct answers
-            if use_reasoning and example.get("answer_valid", False):
+            if use_reasoning and example["answer_valid"]:
                 answer = example["reasoning"]
             else:
                 answer = example["answer"]
