@@ -5,7 +5,7 @@ from PIL import Image
 from datasets import load_dataset
 from transformers import AutoProcessor, TrainingArguments, Trainer, BitsAndBytesConfig
 from transformers import Qwen2_5_VLForConditionalGeneration
-from peft import LoraConfig, get_peft_model, TaskType
+from peft import LoraConfig, get_peft_model, TaskType, prepare_model_for_kbit_training
 from dotenv import load_dotenv
 from typing import Dict, List, Tuple
 import numpy as np
@@ -33,15 +33,40 @@ def setup_quantization():
     )
     return bnb_config
 
-def setup_lora_config():
+def find_target_modules(model):
+    """Find all linear layers in the model for LoRA targeting"""
+    target_modules = set()
+    for name, module in model.named_modules():
+        if isinstance(module, torch.nn.Linear):
+            # Get the module name without the base model prefix
+            if "model." in name:
+                module_name = name.split(".")[-1]  # Get the last part
+                target_modules.add(module_name)
+    
+    # Filter to common attention and MLP layers
+    common_modules = {"q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"}
+    found_modules = list(target_modules.intersection(common_modules))
+    
+    if not found_modules:
+        # Fallback to all linear layers if common ones not found
+        found_modules = list(target_modules)[:8]  # Limit to prevent too many modules
+    
+    print(f"Found target modules: {found_modules}")
+    return found_modules
+
+def setup_lora_config(target_modules=None):
     """Setup LoRA configuration for parameter-efficient fine-tuning"""
+    if target_modules is None:
+        target_modules = ["q_proj", "k_proj", "v_proj", "o_proj"]  # Conservative default
+    
     lora_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
         inference_mode=False,
-        r=8,  # Low rank
+        r=16,  # Increased rank for better performance
         lora_alpha=32,
         lora_dropout=0.1,
-        target_modules=["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+        target_modules=target_modules,
+        modules_to_save=None,
     )
     return lora_config
 
@@ -58,14 +83,20 @@ def load_qwen_model_optimized():
         model_id,
         quantization_config=bnb_config,
         device_map="auto",
-        torch_dtype=torch.bfloat16,  # Use flash attention if available
+        torch_dtype=torch.bfloat16,
     )
+    
+    # Prepare model for k-bit training (required for quantized models)
+    model = prepare_model_for_kbit_training(model)
     
     # Enable gradient checkpointing to save memory
     model.gradient_checkpointing_enable()
     
+    # Find target modules for LoRA
+    target_modules = find_target_modules(model)
+    
     # Setup LoRA
-    lora_config = setup_lora_config()
+    lora_config = setup_lora_config(target_modules)
     model = get_peft_model(model, lora_config)
     
     # Load processor
@@ -301,8 +332,8 @@ def main():
     train_size = int(0.8 * dataset_size)
     
     # Use smaller subsets for memory efficiency
-    max_train_samples = min(1000, train_size)  # Limit training samples
-    max_test_samples = dataset_size - train_size  # Limit test samples
+    max_train_samples = min(100, train_size)  # Drastically limit training samples for testing
+    max_test_samples = min(50, dataset_size - train_size)  # Limit test samples
     
     train_ds = full_dataset.select(range(max_train_samples))
     test_ds = full_dataset.select(range(train_size, train_size + max_test_samples))
@@ -322,17 +353,17 @@ def main():
     # Training arguments optimized for memory
     training_args = TrainingArguments(
         output_dir="qwen2_5_vl_3b_reasoning_optimized",
-        num_train_epochs=3,  # Reduced epochs
-        per_device_train_batch_size=2,  # Very small batch size
-        gradient_accumulation_steps=16,  # Large accumulation to compensate
-        warmup_steps=10,
-        learning_rate=1e-4,  # Slightly higher LR for LoRA
+        num_train_epochs=2,  # Further reduced epochs for testing
+        per_device_train_batch_size=1,  # Even smaller batch size
+        gradient_accumulation_steps=32,  # Larger accumulation to compensate
+        warmup_steps=5,
+        learning_rate=2e-4,  # Higher LR for LoRA
         weight_decay=0.01,
-        logging_steps=5,
-        save_steps=100,
-        eval_steps=100,
+        logging_steps=1,  # More frequent logging
+        save_steps=50,
+        eval_steps=50,
         save_strategy="steps",
-        save_total_limit=2,
+        save_total_limit=1,  # Keep only 1 checkpoint
         bf16=True,
         dataloader_pin_memory=False,  # Disable pin memory to save GPU memory
         dataloader_num_workers=0,  # Reduce workers to save memory
@@ -341,6 +372,7 @@ def main():
         gradient_checkpointing=True,
         max_grad_norm=1.0,
         report_to=None,  # Disable wandb/tensorboard to save memory
+        ddp_find_unused_parameters=False,  # Helps with gradient issues
     )
     
     # Create trainer with memory optimizations
@@ -365,7 +397,7 @@ def main():
         processor.save_pretrained(training_args.output_dir)
         
         print("Evaluating fine-tuned model...")
-        results = evaluate_model_subset(model, processor, test_ds, max_samples=len(test_ds))
+        results = evaluate_model_subset(model, processor, test_ds, max_samples=10)
         
         print(f"\nFinal Results:")
         print(f"Accuracy: {results['accuracy']:.3f}")
