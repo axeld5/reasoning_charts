@@ -323,9 +323,8 @@ def main():
     training_args = TrainingArguments(
         output_dir="qwen2_5_vl_3b_reasoning_optimized",
         num_train_epochs=3,  # Reduced epochs
-        per_device_train_batch_size=1,  # Very small batch size
+        per_device_train_batch_size=2,  # Very small batch size
         gradient_accumulation_steps=16,  # Large accumulation to compensate
-        per_device_eval_batch_size=1,
         warmup_steps=10,
         learning_rate=1e-4,  # Slightly higher LR for LoRA
         weight_decay=0.01,
